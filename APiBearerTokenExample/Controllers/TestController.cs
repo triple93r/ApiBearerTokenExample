@@ -14,7 +14,7 @@ namespace APiBearerTokenExample.Controllers
                 
         }
 
-        private readonly string Url = "http://localhost:5028/swagger/index.html";
+        private readonly string Url = "http://localhost:5028/";
 
         [HttpGet]
         [Route("logincheck")]
