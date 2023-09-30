@@ -14,7 +14,7 @@ namespace APiBearerTokenExample.Controllers
                 
         }
 
-        private readonly string Url = "http://localhost:5028/";
+        private readonly string Url = "http://localhost:5228/Home/";
 
         [HttpGet]
         [Route("logincheck")]
@@ -28,7 +28,6 @@ namespace APiBearerTokenExample.Controllers
                 new KeyValuePair<string, string>("passwrd", passwod),
                 new KeyValuePair<string, string>("grant_type", "password")
             };
-            //var KeyValuePair<string, string>
 
             var requst = new HttpRequestMessage(HttpMethod.Post, Url + "Token");
             requst.Content = new FormUrlEncodedContent(keyvalues);
@@ -38,13 +37,14 @@ namespace APiBearerTokenExample.Controllers
             using (HttpContent content = response.Content)
             {
                 var json = content.ReadAsStringAsync();
+                //string jsonString = "{\"access_token\": \"uhjkuihhgkjhkjhjlietrsjl\",\".expires\": \"" + (DateTime.Now) + "\"}";
                 JObject jwtDynamic = JsonConvert.DeserializeObject<dynamic>(json.Result);
+
                 var accessTokenExpiration = jwtDynamic.Value<DateTime>(".expires");
                 accessToken = jwtDynamic.Value<string>("access_token");
                 var usernm = jwtDynamic.Value<string>("userName");
                 var AccessTokenExpirationDate = accessTokenExpiration;
             }
-
             return Ok();
         }
 
